@@ -75,7 +75,7 @@ class Settings extends Page
                             ->label('How many days should new users wait before they can withdraw?')
                             ->placeholder('3')
                             ->required()
-                            ->rules(['numeric', 'min:1', 'max:30'])
+                            ->rules(['numeric', 'min:0', 'max:30'])
                             ->default(3),
                     ])
                     ->statePath('data'),
