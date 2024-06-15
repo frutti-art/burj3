@@ -1,0 +1,16 @@
+{
+  "name": "node_crypto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "transfer_usdt.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+      "@noble/secp256k1": "^1.7.1",
+      "tronweb": "^5.3.2"
+  }
+}
