@@ -8,6 +8,7 @@ use App\Models\Setting;
 use App\Services\UserReferralsService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Random\RandomException;
 
 class MainController extends Controller
 {
@@ -23,8 +24,9 @@ class MainController extends Controller
     {
         $levels = Level::all();
         $user = auth()->user();
+        $newMembers = $this->generateNewMembers(500);
 
-        return view('tailwindui.home', compact('levels', 'user'));
+        return view('tailwindui.home', compact('levels', 'user', 'newMembers'));
     }
 
     public function levels()
@@ -75,5 +77,49 @@ class MainController extends Controller
         $levels = Level::all();
 
         return view('pages.levels-calculator', compact('levels'));
+    }
+
+    private function generateRandomEmail(): string
+    {
+        $vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
+        $alphabet = range('a', 'z');
+        $providers = [
+            'gmail.com',
+            'yahoo.com',
+            'hotmail.com',
+            'outlook.com',
+            'aol.com',
+            'protonmail.com',
+            'zoho.com',
+            'icloud.com',
+            'yandex.com',
+            'mail.com',
+            'gmx.com',
+        ];
+
+        $firstLetter = $alphabet[array_rand($alphabet)];
+        $secondLetter = $vowels[array_rand($vowels)];
+        $thirdLetter = $alphabet[array_rand($alphabet)];
+        $localPartLength = random_int(4, 9);
+        $localPart = str_repeat('*', $localPartLength);
+        $domain = $providers[array_rand($providers)];
+
+        return $firstLetter . $secondLetter . $thirdLetter . $localPart . '@' . $domain;
+    }
+
+    private function generateNewMembers(int $count): array
+    {
+        $newMembers = [];
+        $levels = Level::all()->toArray();
+
+        for ($i = 0; $i < $count; $i++) {
+            if (random_int(0, 1)) {
+                $newMembers[] = $this->generateRandomEmail() . " just invested " . $levels[array_rand($levels)]['upgrade_cost'] . " <b>USDT</b>";
+            } else {
+                $newMembers[] = $this->generateRandomEmail() . " just claimed " . $levels[array_rand($levels)]['daily_return_amount'] . " <b>USDT</b>";
+            }
+        }
+
+        return $newMembers;
     }
 }

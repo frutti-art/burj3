@@ -39,6 +39,11 @@ class TranslationResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('key')
+                    ->formatStateUsing(function (Model $record) {
+                        return ucfirst(strtolower(str_replace('_', ' ', $record->key)));
+                    })
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('value')
                     ->searchable(),
             ])

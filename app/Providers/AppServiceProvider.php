@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Transaction::observe(TransactionObserver::class);
 
-        Facades\View::composer(['pages.*', 'tailwindui.*'], function (View $view) {
+        Facades\View::composer(['pages.*', 'tailwindui.*', 'welcome'], function (View $view) {
             if (auth()->check()) {
                 $userService = app(UserService::class);
                 $userIsEligibleToClaimBonus = $userService->userIsEligibleToClaimBonus(auth()->user());
@@ -42,11 +42,11 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('gainedBonus', $gainedBonus);
                 $view->with('durationToNextClaim', $durationToNextClaim);
                 $view->with('countUpValues', $this->getValuesForCountUp());
-
-                $translations = Translation::all()->pluck('value', 'key')->toArray();
-
-                $view->with('t', $translations);
             }
+
+            $translations = Translation::all()->pluck('value', 'key')->toArray();
+
+            $view->with('t', $translations);
         });
     }
 

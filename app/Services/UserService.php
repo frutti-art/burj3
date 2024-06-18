@@ -98,6 +98,7 @@ class UserService
 
     public function checkUserEligibilityToWithdraw(User $user, float $amount = null): bool
     {
+        return true;
         $newUsersCannotWithdrawForXDays = (int) (Setting::where('key', Setting::NEW_USERS_CANNOT_WITHDRAW_FOR_X_DAYS)->first()?->value ?? 3);
 
         if ($user->created_at->diffInDays(Carbon::now()) < $newUsersCannotWithdrawForXDays) {

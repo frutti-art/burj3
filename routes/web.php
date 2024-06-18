@@ -8,12 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $appName = env('APP_NAME');
+
+    return view('welcome', compact('appName'));
 });
 
 Route::get('/login', function () {
    return redirect()->route('filament.admin.auth.login');
 })->name('login');
+
+Route::get('/register', function () {
+   return redirect()->route('filament.admin.auth.register', request()?->all());
+})->name('register');
 
 Route::get('/logout', function () {
     Auth::logout();

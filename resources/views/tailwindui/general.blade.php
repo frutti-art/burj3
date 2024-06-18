@@ -33,7 +33,7 @@
 
     <div
         class="border border-gray-200 bg-gray-100 dark:bg-[#192734] dark:border-none shadow-md sm:rounded-lg sm:border p-4 mx-2">
-        <div class="mb-6 mt-2 space-y-2 font-normal leading-6 text-gray-600 text-center">
+        <div class="mb-6 mt-2 space-y-2 font-normal leading-6 text-gray-600 dark:text-[#FFFFFF] text-center">
             @if($user->level_id)
                 To claim <span
                     class="inline-flex items-center rounded-md bg-blue-50 px-1.5 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">{{ $user->level->daily_return_amount }} USDT</span>
@@ -77,13 +77,13 @@
                     <form action="{{ route('user.claim-bonus') }}" method="post">
                         @csrf
                         <button type="submit"
-                                class="w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                class="w-full rounded-md bg-indigo-600 dark:bg-blue-600 dark:text-white px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                             {{ $t[Translation::GENERAL_PAGE_CLAIM_TEXT] }} {{ $user->level->daily_return_amount }} USDT
                         </button>
                     </form>
                 @else
                     <button type="button"
-                            class="w-full rounded-md bg-gray-100 px-3.5 py-2.5 text-sm font-semibold text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300">
+                            class="w-full rounded-md bg-gray-100 dark:bg-indigo-100 dark:ring-0 px-3.5 py-2.5 text-sm font-semibold text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300">
                         {{ $t[Translation::GENERAL_PAGE_CLAIM_TEXT] }} <span id="count" class="mx-2"></span> USDT
                         </span>
                     </button>

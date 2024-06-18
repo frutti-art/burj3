@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class CustomRegister extends Register
 {
-
     protected function getForms(): array
     {
         return [
@@ -25,10 +24,12 @@ class CustomRegister extends Register
         ];
     }
 
-    private function getReferralCodeFormComponent()
+    private function getReferralCodeFormComponent(): TextInput
     {
         return TextInput::make('referral_code')
+            ->default(request()?->query('referral_code', ''))
             ->label('Referral code')
+            ->autofocus()
             ->required()
             ->maxLength(255)
             ->exists($this->getUserModel());

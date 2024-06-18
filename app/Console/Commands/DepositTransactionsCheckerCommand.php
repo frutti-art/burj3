@@ -31,14 +31,12 @@ class DepositTransactionsCheckerCommand extends Command
     public function handle(GetWalletTransactionsService $getWalletTransactionsService)
     {
         $timeRangeToCheck = Carbon::now()->subMinutes(self::SUB_MINUTES);
-
         $users = User::with('transactions')->where('last_possible_deposit', '>', $timeRangeToCheck)->where('is_admin', false)->get();
 
         $minTimestamp = $timeRangeToCheck->timestamp * 1000; // in milliseconds
 
         foreach ($users as $user) {
             $transactions = $getWalletTransactionsService->handle($user->wallet_address, $minTimestamp);
-            \Log::info(json_encode($transactions));
             foreach ($transactions as $transaction) {
                 if ($user->transactions()->where('tx_id', $transaction['transaction_id'])->doesntExist()) {
                     $createdTransaction = $user->transactions()->create([

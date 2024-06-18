@@ -62,9 +62,9 @@
             if (navigator.share) {
                 try {
                     await navigator.share({
-                        title: 'Example Page',
-                        text: 'Check out this awesome page!',
-                        url: window.location.href
+                        title: 'Register here to win crypto!',
+                        text: 'Register here to win crypto!',
+                        url: '{{ route('register', ['referral_code' => $user->referral_code]) }}'
                     });
                     console.log('Content shared successfully');
                 } catch (error) {

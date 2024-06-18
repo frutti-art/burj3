@@ -23,10 +23,15 @@ export default {
                     '0%': { transform: 'rotate(0deg)' },
                     '100%': { transform: 'rotate(359deg)' },
                 },
+                'scroll-up': {
+                    '0%': { transform: 'translateY(100%)' },
+                    '100%': { transform: 'translateY(-100%)' },
+                },
             },
             animation: {
                 spinPause: 'spinPause 2.5s linear infinite',
                 spinOnce: 'spinOnce 0.5s linear 1',
+                'scroll-up': 'scroll-up 8s infinite',
             },
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],

@@ -49,6 +49,23 @@ class Translation extends Model
     public const WITHDRAW_PAGE_HELP_TEXT = 'WITHDRAW_PAGE_HELP_TEXT';
     public const WITHDRAW_PAGE_SUBMIT_BUTTON_TEXT = 'WITHDRAW_PAGE_SUBMIT_BUTTON_TEXT';
 
+    public const LANDING_PAGE_PAGE_TITLE_LINE_1 = 'LANDING_PAGE_PAGE_TITLE_LINE_1';
+    public const LANDING_PAGE_PAGE_TITLE_LINE_2 = 'LANDING_PAGE_PAGE_TITLE_LINE_2';
+    public const LANDING_PAGE_PAGE_DESCRIPTION = 'LANDING_PAGE_PAGE_DESCRIPTION';
+    public const LANDING_PAGE_MENU_1 = 'LANDING_PAGE_MENU_1';
+    public const LANDING_PAGE_MENU_2 = 'LANDING_PAGE_MENU_2';
+    public const LANDING_PAGE_MENU_3 = 'LANDING_PAGE_MENU_3';
+    public const LANDING_PAGE_REGISTER_BUTTON_TEXT = 'LANDING_PAGE_REGISTER_BUTTON_TEXT';
+    public const LANDING_PAGE_HERO_BUTTON_1_TEXT = 'LANDING_PAGE_HERO_BUTTON_1_TEXT';
+    public const LANDING_PAGE_HERO_BUTTON_2_TEXT = 'LANDING_PAGE_HERO_BUTTON_2_TEXT';
+    public const LANDING_PAGE_Q1_2025_TEXT = 'LANDING_PAGE_Q1_2025_TEXT';
+    public const LANDING_PAGE_Q4_2025_TEXT = 'LANDING_PAGE_Q4_2025_TEXT';
+    public const LANDING_PAGE_FOOTER_MENU_1_TITLE = 'LANDING_PAGE_FOOTER_MENU_1_TITLE';
+    public const LANDING_PAGE_FOOTER_MENU_2_TITLE = 'LANDING_PAGE_FOOTER_MENU_2_TITLE';
+    public const LANDING_PAGE_TWITTER_URL = 'LANDING_PAGE_TWITTER_URL';
+    public const LANDING_PAGE_TELEGRAM_URL = 'LANDING_PAGE_TELEGRAM_URL';
+
+
     protected $guarded = [];
     protected $table = 'translations';
 
@@ -88,6 +105,21 @@ class Translation extends Model
             self::WITHDRAW_PAGE_DESCRIPTION,
             self::WITHDRAW_PAGE_HELP_TEXT,
             self::WITHDRAW_PAGE_SUBMIT_BUTTON_TEXT,
+            self::LANDING_PAGE_PAGE_TITLE_LINE_1,
+            self::LANDING_PAGE_PAGE_TITLE_LINE_2,
+            self::LANDING_PAGE_PAGE_DESCRIPTION,
+            self::LANDING_PAGE_MENU_1,
+            self::LANDING_PAGE_MENU_2,
+            self::LANDING_PAGE_MENU_3,
+            self::LANDING_PAGE_REGISTER_BUTTON_TEXT,
+            self::LANDING_PAGE_HERO_BUTTON_1_TEXT,
+            self::LANDING_PAGE_HERO_BUTTON_2_TEXT,
+            self::LANDING_PAGE_Q1_2025_TEXT,
+            self::LANDING_PAGE_Q4_2025_TEXT,
+            self::LANDING_PAGE_FOOTER_MENU_1_TITLE,
+            self::LANDING_PAGE_FOOTER_MENU_2_TITLE,
+            self::LANDING_PAGE_TWITTER_URL,
+            self::LANDING_PAGE_TELEGRAM_URL,
         ];
     }
 
@@ -102,7 +134,7 @@ class Translation extends Model
                 self::HOME_NEW_MEMBERS_ITEM_TEXT => 'just invested',
                 self::LEVELS_PAGE_TITLE => 'Levels',
                 self::LEVELS_PAGE_DESCRIPTION => 'Workcation is a property rental website. Etiam ullamcorper massa viverra consequat, consectetur.',
-                self::LEVELS_PAGE_UPGRADE_BUTTON_TEXT => 'I want to win',
+                self::LEVELS_PAGE_UPGRADE_BUTTON_TEXT => 'I want to upgrade',
                 self::LEVELS_PAGE_UPGRADE_BUTTON_TEXT_WHEN_CURRENT_LEVEL => 'Current',
                 self::LEVELS_PAGE_INVITE_FRIENDS_TEXT => 'You need to invite %s friend(s) to <b>%s</b> to be able to upgrade',
                 self::LEVELS_PAGE_YOU_INVEST => 'You invest',
@@ -127,6 +159,21 @@ class Translation extends Model
                 self::WITHDRAW_PAGE_DESCRIPTION => 'Workcation is a property rental website. Etiam ullamcorper massa viverra consequat, consectetur.',
                 self::WITHDRAW_PAGE_HELP_TEXT => '',
                 self::WITHDRAW_PAGE_SUBMIT_BUTTON_TEXT => 'Withdraw',
+                self::LANDING_PAGE_PAGE_TITLE_LINE_1 => 'Grow your money',
+                self::LANDING_PAGE_PAGE_TITLE_LINE_2 => 'by investing',
+                self::LANDING_PAGE_PAGE_DESCRIPTION => 'Powered by ',
+                self::LANDING_PAGE_MENU_1 => 'Sample1',
+                self::LANDING_PAGE_MENU_2 => 'Sample2',
+                self::LANDING_PAGE_MENU_3 => 'Sample3',
+                self::LANDING_PAGE_REGISTER_BUTTON_TEXT => 'Register',
+                self::LANDING_PAGE_HERO_BUTTON_1_TEXT => 'Launch app',
+                self::LANDING_PAGE_HERO_BUTTON_2_TEXT => 'Whitepaper',
+                self::LANDING_PAGE_Q1_2025_TEXT => 'Long message text',
+                self::LANDING_PAGE_Q4_2025_TEXT => 'Long message text',
+                self::LANDING_PAGE_FOOTER_MENU_1_TITLE => 'Exchanges',
+                self::LANDING_PAGE_FOOTER_MENU_2_TITLE => 'Community',
+                self::LANDING_PAGE_TWITTER_URL => 'test',
+                self::LANDING_PAGE_TELEGRAM_URL => 'test',
        ];
     }
 }

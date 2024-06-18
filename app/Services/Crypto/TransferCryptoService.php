@@ -26,7 +26,8 @@ class TransferCryptoService
             'TRANSFER_AMOUNT' => (int) $transfer_amount,
             'TRANSFER_TYPE' => strtoupper($transfer_type),
             'TRON_PRO_API_KEY' => env('TRON_PRO_API_KEY'),
-            'TRON_HOST' => env('TRON_HOST')
+            'TRON_HOST' => env('TRON_HOST'),
+            'USDT_CONTRACT_ADDRESS' => env('USDT_CONTRACT_ADDRESS'),
         ]);
 
         $process->start();
@@ -36,7 +37,7 @@ class TransferCryptoService
                 \Log::info($transfer_amount . ' ' . $transfer_type . ' transfer failed. To: ' . $to_wallet_address);
                 throw new TransferCryptoException($output);
             }
-            \Log::info($output);
+
             \Log::info($transfer_amount . ' ' . $transfer_type . ' transfer successfully done. To: ' . $to_wallet_address);
         });
     }

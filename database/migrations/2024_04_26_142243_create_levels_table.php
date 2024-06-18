@@ -21,6 +21,10 @@ return new class extends Migration
             $table->integer('required_referrals_count')->default(0);
             $table->timestamps();
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('level_id')->nullable()->references('id')->on('levels');
+        });
     }
 
     /**
@@ -28,6 +32,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['level_id']);
+        });
+
         Schema::dropIfExists('levels');
     }
 };

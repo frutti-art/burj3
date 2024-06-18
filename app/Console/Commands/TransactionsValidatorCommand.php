@@ -34,8 +34,6 @@ class TransactionsValidatorCommand extends Command
                 ->where('created_at', '>=', now()->subMinutes(30))
                 ->get();
 
-            \Log::info('Transactions to check ' . $transactionsToCheck->count());
-
             foreach ($transactionsToCheck as $transaction) {
                 try {
                     match ($transaction->reference) {

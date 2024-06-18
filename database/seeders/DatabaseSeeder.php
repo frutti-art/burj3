@@ -7,6 +7,7 @@ use App\Models\Setting;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -16,17 +17,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
             'name' => 'Test Admin',
             'email' => User::ADMIN_EMAIL,
             'password' => Hash::make('admin'),
             'is_admin' => true,
             'wallet_address' => '0x',
-            'referral_code' => '912491248',
+            'referral_code' => '111111',
             'email_verified_at' => now(),
         ]);
+
+        $this->createSettings();
+        Artisan::call('app:translations-sync-command');
+
+        if (app()->environment('production')) {
+            return;
+        }
+
+        $this->createLevels();
 
         User::factory()->create([
             'name' => 'Test User',
@@ -34,12 +42,15 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('user'),
             'is_admin' => false,
             'wallet_address' => '0x123123',
-            'referral_code' => '82359172895412',
+            'referral_code' => '123456',
             'email_verified_at' => now(),
             'can_finish_task'   => true,
             'can_withdraw'  => true,
         ]);
+    }
 
+    private function createLevels()
+    {
         Level::factory()->create([
             'name' => 'Level 1',
             'rank' => 1,
@@ -57,20 +68,28 @@ class DatabaseSeeder extends Seeder
             'claim_limit' => '4',
             'required_referrals_count' => 3,
         ]);
+    }
 
+    private function createSettings()
+    {
         Setting::create([
             'key' => Setting::REFERRAL_BONUS_PERCENTAGE,
-            'value' => '10',
+            'value' => 10,
         ]);
 
         Setting::create([
             'key' => Setting::AUTO_WITHDRAWAL_UP_TO_AMOUNT,
-            'value' => '50',
+            'value' => 50,
         ]);
 
         Setting::create([
             'key' => Setting::CLIENT_APP_IS_LIVE,
             'value' => true,
+        ]);
+
+        Setting::create([
+            'key' => Setting::NEW_USERS_CANNOT_WITHDRAW_FOR_X_DAYS,
+            'value' => 3,
         ]);
     }
 }

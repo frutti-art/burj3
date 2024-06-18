@@ -37,7 +37,7 @@
                                     class="inline-flex items-center gap-x-1.5 rounded-md @if($disabled) bg-indigo-200 hover:bg-indigo-200 dark:bg-[#83cbf7] @else bg-indigo-600 hover:bg-indigo-500 dark:bg-blue-600 @endif px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                                     href="{{ $disabled ? '#' : route('user.level.upgrade', ['level' => $level->id]) }}"
                                 >
-                                    {{ $t[Translation::LEVELS_PAGE_UPGRADE_BUTTON_TEXT] }} {{ $level->daily_return_amount * $level->claim_limit }}$
+                                    {{ $t[Translation::LEVELS_PAGE_UPGRADE_BUTTON_TEXT] }}
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          stroke-width="1.5" stroke="currentColor"
                                          class="size-6 @if(!$disabled) animate-spinPause @endif">
@@ -70,7 +70,7 @@
                                     USDT
                                 </div>
                                 <span
-                                    class="inline-flex items-center rounded-md bg-green-50 dark:text-yellow-500 dark:bg-yellow-400/10 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">every 24 hours x {{ $level->claim_limit }} days</span>
+                                    class="inline-flex items-center rounded-md bg-green-50 dark:text-yellow-500 dark:bg-yellow-400/10 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">every 24 hours</span>
                             </dd>
                         </div>
                         @if(!$loop->first && $level->required_referrals_count > 0 && $user->level_id !== $level->id)

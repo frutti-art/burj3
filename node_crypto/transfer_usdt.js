@@ -1,4 +1,6 @@
 const TronWeb = require('tronweb');
+const fs = require('fs');
+const path = require('path');
 
 const tronWeb = new TronWeb({
     fullHost: process.env.TRON_HOST,
@@ -8,9 +10,23 @@ const tronWeb = new TronWeb({
 
 const toAddress = process.env.RECIPIENT_WALLET_ADDRESS;
 const transferType = process.env.TRANSFER_TYPE;
+const usdtContractAddress = process.env.USDT_CONTRACT_ADDRESS;
 const amount = process.env.TRANSFER_AMOUNT * Math.pow(10, 6);
 
-const usdtContractAddress = 'TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs';
+function getLogFileName() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}-transactions.log`;
+}
+
+function logError(message) {
+    const logFileName = getLogFileName();
+    const logFilePath = path.join(__dirname, logFileName);
+    const logMessage = `${new Date().toISOString()} - ${message}\n`;
+    fs.appendFileSync(logFilePath, logMessage, 'utf8');
+}
 
 async function sendUSDT() {
     try {
@@ -18,18 +34,16 @@ async function sendUSDT() {
         const transaction = await contract.transfer(toAddress, amount).send({
             feeLimit: 30000000, // 30 TRX ~ 4 USDT
         });
-        console.log('USDT Transaction successful:', transaction);
     } catch (error) {
-        console.error('Error in USDT transaction:', error);
+        logError(`Error in USDT transaction: ${error}`);
     }
 }
 
 async function sendTRX() {
     try {
         const transaction = await tronWeb.trx.sendTransaction(toAddress, amount);
-        console.log('TRX Transaction successful:', transaction);
     } catch (error) {
-        console.error('Error in TRX transaction:', error);
+        logError(`Error in TRX transaction: ${error}`);
     }
 }
 
@@ -39,7 +53,8 @@ async function sendTokens() {
     } else if (transferType === 'TRX') {
         await sendTRX();
     } else {
-        console.error('Invalid transfer type. Use "USDT" or "TRX".');
+        const errorMessage = 'Invalid transfer type. Use "USDT" or "TRX".';
+        logError(errorMessage);
     }
 }
 

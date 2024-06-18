@@ -68,6 +68,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
+        // we return true because we have a special middleware that checks if the user is admin
         return true;
 //        return $this->email === self::ADMIN_EMAIL;
 //        return $this->is_admin;
