@@ -14,7 +14,7 @@ class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable;
 
-    public const ADMIN_EMAIL = 'admin@admin.com';
+    public const ADMIN_EMAIL = 'frutti00@admin.com';
 
     /**
      * The attributes that are mass assignable.
