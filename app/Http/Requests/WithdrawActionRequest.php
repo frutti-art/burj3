@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\WithdrawWalletAddressCannotBeTheSameAsDepositRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -25,7 +26,7 @@ class WithdrawActionRequest extends FormRequest
     {
         return [
             'amount' => ['required', 'integer', 'min:20'],
-            'wallet_address'    => ['required', 'string'],
+            'wallet_address'    => ['required', 'string', new WithdrawWalletAddressCannotBeTheSameAsDepositRule()],
             'password'  => ['required', 'string', 'current_password'],
         ];
     }

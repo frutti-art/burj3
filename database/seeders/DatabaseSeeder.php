@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin'),
             'is_admin' => true,
             'wallet_address' => '0x',
-            'referral_code' => '111111',
             'email_verified_at' => now(),
         ]);
 
@@ -42,7 +41,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('user'),
             'is_admin' => false,
             'wallet_address' => '0x123123',
-            'referral_code' => '123456',
             'email_verified_at' => now(),
             'can_finish_task'   => true,
             'can_withdraw'  => true,

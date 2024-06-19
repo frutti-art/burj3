@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Setting;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Services\Crypto\GetWalletTransactionsService;
@@ -31,7 +32,10 @@ class DepositTransactionsCheckerCommand extends Command
     public function handle(GetWalletTransactionsService $getWalletTransactionsService)
     {
         $timeRangeToCheck = Carbon::now()->subMinutes(self::SUB_MINUTES);
-        $users = User::with('transactions')->where('last_possible_deposit', '>', $timeRangeToCheck)->where('is_admin', false)->get();
+        $users = User::with('transactions')
+            ->where('last_possible_deposit', '>', $timeRangeToCheck)
+            ->where('is_admin', false)
+            ->get();
 
         $minTimestamp = $timeRangeToCheck->timestamp * 1000; // in milliseconds
 
@@ -39,14 +43,25 @@ class DepositTransactionsCheckerCommand extends Command
             $transactions = $getWalletTransactionsService->handle($user->wallet_address, $minTimestamp);
             foreach ($transactions as $transaction) {
                 if ($user->transactions()->where('tx_id', $transaction['transaction_id'])->doesntExist()) {
+                    $amount = (float) $transaction['value'] / 1000000;
+
                     $createdTransaction = $user->transactions()->create([
                         'tx_id' => $transaction['transaction_id'],
-                        'amount' => (float) $transaction['value'] / 1000000,
+                        'amount' => $amount,
                         'reference' => Transaction::REFERENCE_DEPOSIT,
                         'type' => Transaction::TYPE_DEPOSIT,
                         'status' => Transaction::STATUS_COMPLETED,
                         'wallet_address' => $user->wallet_address,
                     ]);
+
+                    if ($user->referrer !== null) {
+                        $user->referrer->transactions()->create([
+                            'amount' => $this->calculateAmountForReferralBonus($amount),
+                            'status' => Transaction::STATUS_PENDING,
+                            'type' => Transaction::TYPE_DEPOSIT,
+                            'reference' => Transaction::REFERENCE_REFERRAL_BONUS,
+                        ]);
+                    }
 
                     $user->update([
                         'balance' => $user->balance + $createdTransaction->amount,
@@ -54,5 +69,12 @@ class DepositTransactionsCheckerCommand extends Command
                 }
             }
         }
+    }
+
+    private function calculateAmountForReferralBonus(float $amount): float
+    {
+        $referralBonusPercentage = (float) Setting::where('key', Setting::REFERRAL_BONUS_PERCENTAGE)->first()->value;
+
+        return $amount * ($referralBonusPercentage / 100);
     }
 }

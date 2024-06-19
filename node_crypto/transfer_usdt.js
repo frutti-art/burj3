@@ -34,6 +34,8 @@ async function sendUSDT() {
         const transaction = await contract.transfer(toAddress, amount).send({
             feeLimit: 30000000, // 30 TRX ~ 4 USDT
         });
+
+        logError('USDT transaction successful.' + process.env.TRANSFER_AMOUNT +' To address:' + toAddress);
     } catch (error) {
         logError(`Error in USDT transaction: ${error}`);
     }
@@ -42,6 +44,8 @@ async function sendUSDT() {
 async function sendTRX() {
     try {
         const transaction = await tronWeb.trx.sendTransaction(toAddress, amount);
+
+        logError('TRX transaction successful.' + process.env.TRANSFER_AMOUNT +' To address:' + toAddress);
     } catch (error) {
         logError(`Error in TRX transaction: ${error}`);
     }

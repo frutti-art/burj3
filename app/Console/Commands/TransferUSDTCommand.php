@@ -27,23 +27,23 @@ class TransferUSDTCommand extends Command
      */
     public function handle()
     {
-        $process = new Process(['node', base_path('/node_crypto/transfer_usdt.js')]);
-        $process->setEnv([
-            'TRON_PRIVATE_KEY' => env('TRON_PRIVATE_KEY'),
-            'TRON_WALLET_ADDRESS' => env('TRON_WALLET_ADDRESS'),
-            'RECIPIENT_WALLET_ADDRESS' => env('RECIPIENT_WALLET_ADDRESS'),
-        ]);
-
-        $process->start();
-
-        $this->info('USDT transfer script started.');
-
-        $process->wait(function ($type, $output) {
-            if (Process::ERR === $type) {
-                $this->error($output);
-            } else {
-                $this->info($output);
-            }
-        });
+//        $process = new Process(['node', base_path('/node_crypto/transfer_usdt.js')]);
+//        $process->setEnv([
+//            'TRON_PRIVATE_KEY' => env('TRON_PRIVATE_KEY'),
+//            'TRON_WALLET_ADDRESS' => env('TRON_WALLET_ADDRESS'),
+//            'RECIPIENT_WALLET_ADDRESS' => env('RECIPIENT_WALLET_ADDRESS'),
+//        ]);
+//
+//        $process->start();
+//
+//        $this->info('USDT transfer script started.');
+//
+//        $process->wait(function ($type, $output) {
+//            if (Process::ERR === $type) {
+//                $this->error($output);
+//            } else {
+//                $this->info($output);
+//            }
+//        });
     }
 }

@@ -65,6 +65,10 @@ class UserService
             return false;
         }
 
+        if ($this->timeNowIsXHoursBeforeNextClaim()) {
+            return false;
+        }
+
         return true;
     }
 
@@ -98,11 +102,10 @@ class UserService
 
     public function checkUserEligibilityToWithdraw(User $user, float $amount = null): bool
     {
-        return true;
         $newUsersCannotWithdrawForXDays = (int) (Setting::where('key', Setting::NEW_USERS_CANNOT_WITHDRAW_FOR_X_DAYS)->first()?->value ?? 3);
 
         if ($user->created_at->diffInDays(Carbon::now()) < $newUsersCannotWithdrawForXDays) {
-            throw new UserNotEligibleToWithdrawException('You cannot withdraw within the first 3 days of registration');
+            throw new UserNotEligibleToWithdrawException("You cannot withdraw within the first $newUsersCannotWithdrawForXDays days of registration");
         }
 
         if (!$user->can_withdraw) {
@@ -133,8 +136,6 @@ class UserService
 
     public function upgradeUserToLevel(User $user, Level $level): void
     {
-        $userIsUpgradingForFirstTime = $user->level_id === null;
-
         $user->update([
             'level_id' => $level->id,
             'balance' => $user->balance - $level->upgrade_cost,
@@ -147,22 +148,15 @@ class UserService
             'type' => Transaction::TYPE_WITHDRAW,
             'reference' => Transaction::REFERENCE_LEVEL_UP,
         ]);
-
-        if ($userIsUpgradingForFirstTime && $user->referrer !== null) {
-            $user->referrer->transactions()->create([
-                'amount' => $this->calculateAmountForReferralBonus($level),
-                'status' => Transaction::STATUS_PENDING,
-                'type' => Transaction::TYPE_DEPOSIT,
-                'reference' => Transaction::REFERENCE_REFERRAL_BONUS,
-            ]);
-        }
-
     }
 
-    private function calculateAmountForReferralBonus(Level $level): float
+    private function timeNowIsXHoursBeforeNextClaim(): bool
     {
-        $referralBonusPercentage = (float) Setting::where('key', Setting::REFERRAL_BONUS_PERCENTAGE)->first()->value;
+        $now = Carbon::now();
 
-        return $level->upgrade_cost * ($referralBonusPercentage / 100);
+        $startTime = Carbon::createFromTime(5);
+        $endTime = Carbon::createFromTime(8);
+
+        return $now->between($startTime, $endTime);
     }
 }

@@ -22,18 +22,6 @@ class TransactionService
         ]);
     }
 
-    public function createTransactionForDeposit(User $user): Transaction
-    {
-        return Transaction::create([
-            'user_id' => $user->id,
-            'amount' => null, // User deposits a custom amount
-            'type' => Transaction::TYPE_DEPOSIT,
-            'status' => Transaction::STATUS_PENDING,
-            'reference' => Transaction::REFERENCE_DEPOSIT,
-            'wallet_address' => $user->wallet_address,
-        ]);
-    }
-
     public function createTransactionForWithdraw(User $user, int $amount, string $wallet_address): Transaction
     {
         return Transaction::create([

@@ -23,20 +23,14 @@
     <meta name="twitter:description"
           content="{{ $appName }}">
     <meta name="twitter:image" content="images/RxAP9bVzJ6dc.jpg">
-    <link rel="shortcut icon" href="landing/EI9Yrjtbvb1n.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="landing/images/wzWeMk71MQXi.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="landing/images/Tq7vbPJTiX9T.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="landing/images/WVqWu4m0aQvP.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="landing/images/BsJ3ZvudHKG7.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="landing/images/kJ70TEAE7vHu.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="landing/images/zRBpJuX4aFu3.png">
-    <link rel="manifest" href="landing/images/favicons/manifest.webmanifest">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="images/favicons/mstile-144x144.png">
-    <meta name="msapplication-config" content="images/favicons/browserconfig.xml">
-    <meta name="theme-color" content="#121B25">
-    <link rel="preconnect" href="#">
-    <link rel="preconnect" href="#" crossorigin="">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>Onyx</title>
     <link href="#" rel="stylesheet">
     <link rel="stylesheet" href="landing/css/sFHqOmhIyQye.css">
 
