@@ -28,7 +28,7 @@ class TransactionController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('tailwindui.transactions-list', compact('transactions', 'user'));
+        return view('tailwindui.transactions.transactions', compact('transactions', 'user'));
     }
 
     public function deposit(Request $request)
@@ -43,7 +43,7 @@ class TransactionController extends Controller
             'last_possible_deposit' => now(),
         ]);
 
-        return view('tailwindui.transaction', compact( 'user'));
+        return view('tailwindui.deposit.deposit', compact( 'user'));
     }
 
     public function withdraw()
@@ -56,7 +56,7 @@ class TransactionController extends Controller
             return redirect()->route('user.general')->with('error', $e->getMessage());
         }
 
-        return view('tailwindui.withdraw', compact('user'));
+        return view('tailwindui.withdraw.withdraw', compact('user'));
     }
 
     public function withdrawAction(WithdrawActionRequest $request)

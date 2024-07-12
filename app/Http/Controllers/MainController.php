@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\UserNotEligibleToUpgradeException;
+use App\Http\Requests\ChangePasswordActionRequest;
 use App\Models\Level;
+use App\Models\Message;
 use App\Models\Setting;
 use App\Services\UserReferralsService;
 use App\Services\UserService;
@@ -14,7 +16,7 @@ class MainController extends Controller
 {
     public function __construct(
         private readonly UserReferralsService $userReferralsService,
-        private readonly UserService $userService,
+        private readonly UserService          $userService,
     )
     {
 
@@ -26,7 +28,7 @@ class MainController extends Controller
         $user = auth()->user();
         $newMembers = $this->generateNewMembers(500);
 
-        return view('tailwindui.home', compact('levels', 'user', 'newMembers'));
+        return view('tailwindui.home.home', compact('levels', 'user', 'newMembers'));
     }
 
     public function levels()
@@ -45,31 +47,31 @@ class MainController extends Controller
             }
         }
 
-        return view('tailwindui.levels', compact('levels', 'user'));
+        return view('tailwindui.levels.levels', compact('levels', 'user'));
     }
 
     public function team()
     {
         $levelReferralsInfo = $this->userReferralsService->getCountOfReferralsForEachLevelForUser(auth()->user());
         $user = auth()->user();
-        $referralBonusPercentage = (float) Setting::where('key', Setting::REFERRAL_BONUS_PERCENTAGE)->first()->value;
-        $autoWithdrawalUpToAmount = (float) Setting::where('key', Setting::AUTO_WITHDRAWAL_UP_TO_AMOUNT)->first()->value;
+        $referralBonusPercentage = (float)Setting::where('key', Setting::REFERRAL_BONUS_PERCENTAGE)->first()->value;
+        $autoWithdrawalUpToAmount = (float)Setting::where('key', Setting::AUTO_WITHDRAWAL_UP_TO_AMOUNT)->first()->value;
 
-        return view('tailwindui.team', compact('user', 'levelReferralsInfo', 'referralBonusPercentage', 'autoWithdrawalUpToAmount'));
+        return view('tailwindui.team.team', compact('user', 'levelReferralsInfo', 'referralBonusPercentage', 'autoWithdrawalUpToAmount'));
     }
 
     public function general()
     {
         $user = auth()->user();
 
-        return view('tailwindui.general', compact('user'));
+        return view('tailwindui.general.general', compact('user'));
     }
 
     public function profile()
     {
         $user = auth()->user();
 
-        return view('tailwindui.profile', compact('user'));
+        return view('tailwindui.profile.profile', compact('user'));
     }
 
     public function levelsCalculator()
@@ -77,6 +79,56 @@ class MainController extends Controller
         $levels = Level::all();
 
         return view('pages.levels-calculator', compact('levels'));
+    }
+
+    public function contact()
+    {
+        return view('pages.contact');
+    }
+
+    public function contactAction(Request $request)
+    {
+        $request->validate([
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|email|string',
+            'message' => 'required|string',
+        ]);
+
+        Message::create([
+            'first_name' => $request->get('first_name'),
+            'last_name' =>  $request->get('last_name'),
+            'email'     =>  $request->get('email'),
+            'content'     =>  $request->get('message'),
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Your message has been sent successfully!'
+        ]);
+    }
+
+    public function faq()
+    {
+        $faqs = \App\Models\Faq::all();
+
+        return view('pages.faq', compact('faqs'));
+    }
+
+    public function changePassword()
+    {
+        $user = auth()->user();
+
+        return view('tailwindui.change-password.change-password', compact('user'));
+    }
+
+    public function changePasswordAction(ChangePasswordActionRequest $request)
+    {
+        $user = auth()->user();
+
+        $this->userService->changePassword($user, $request->input('new_password'));
+
+        return redirect()->route('user.change-password')->with('success', 'Password changed successfully');
     }
 
     private function generateRandomEmail(): string

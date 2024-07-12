@@ -30,7 +30,7 @@
                 }
             };
 
-            const currentTheme = localStorage.theme || 'light';
+            const currentTheme = localStorage.theme || 'dark';
             applyTheme(currentTheme);
 
             document.documentElement.style.display = 'block';
@@ -62,7 +62,7 @@
 {{--#1EA1F2 buttons --}}
 {{--#83cbf7 disabled buttons --}}
 <body
-    class="container mx-auto max-w-3xl p-2 md:px-24 pb-24 absolute inset-0 h-full w-full bg-slate-50 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] dark:bg-[#181818] dark:bg-none">
+    class="container mx-auto max-w-full p-2 sm:p-0 pb-24 absolute inset-0 h-full w-full bg-slate-50 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] dark:bg-[#21303F] dark:bg-none">
 @include('tailwindui.header')
 
 <div class="pb-24">
@@ -78,13 +78,14 @@
     // document.addEventListener('DOMContentLoaded', () => {
     const session_error = '{{ session('error') }}';
     const session_success = '{{ session('success') }}';
+    const currentTheme = localStorage.theme || 'dark';
 
     if (session_error) {
         Swal.fire({
             icon: 'error',
             title: 'Error',
             text: session_error,
-            confirmButtonColor: "#3949AB",
+            confirmButtonColor: (currentTheme === 'light') ? "#3949AB" : "#20B9A6",
         });
     }
 
@@ -93,16 +94,18 @@
             icon: 'success',
             title: 'Success',
             text: session_success,
+            confirmButtonColor: (currentTheme === 'light') ? "#3949AB" : "#20B9A6",
         });
     }
 
-    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggle = document.getElementsByClassName('theme-toggle');
 
-    themeToggle.addEventListener('click', () => {
-        const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
-        applyTheme(newTheme);
-    });
-    // });
+    for (let i = 0; i < themeToggle.length; i++) {
+        themeToggle[i].addEventListener('click', () => {
+            const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
+    }
 
 </script>
 </body>

@@ -33,11 +33,16 @@ class Translation extends Model
     public const TEAM_PAGE_DESCRIPTION = 'TEAM_PAGE_DESCRIPTION';
     public const TEAM_PAGE_YOUR_CODE = 'TEAM_PAGE_YOUR_CODE';
     public const TEAM_PAGE_SHARE_URL_WITH_FRIENDS = 'TEAM_PAGE_SHARE_URL_WITH_FRIENDS';
+    public const TEAM_PAGE_QR_CODE_LIST_TITLE = 'TEAM_PAGE_QR_CODE_LIST_TITLE';
     public const TEAM_PAGE_REFERRALS_LIST_TITLE = 'TEAM_PAGE_REFERRALS_LIST_TITLE';
     public const TEAM_PAGE_FRIENDS = 'TEAM_PAGE_FRIENDS';
 
     public const PROFILE_PAGE_TITLE = 'PROFILE_PAGE_TITLE';
     public const PROFILE_PAGE_DESCRIPTION = 'PROFILE_PAGE_DESCRIPTION';
+
+    public const CHANGE_PASSWORD_PAGE_TITLE = 'CHANGE_PASSWORD_PAGE_TITLE';
+    public const CHANGE_PASSWORD_PAGE_DESCRIPTION = 'CHANGE_PASSWORD_PAGE_DESCRIPTION';
+    public const CHANGE_PASSWORD_SUBMIT_BUTTON_TEXT = 'CHANGE_PASSWORD_SUBMIT_BUTTON_TEXT';
 
     public const DEPOSIT_PAGE_TITLE = 'DEPOSIT_PAGE_TITLE';
     public const DEPOSIT_PAGE_DESCRIPTION = 'DEPOSIT_PAGE_DESCRIPTION';
@@ -55,10 +60,13 @@ class Translation extends Model
     public const LANDING_PAGE_MENU_1 = 'LANDING_PAGE_MENU_1';
     public const LANDING_PAGE_MENU_2 = 'LANDING_PAGE_MENU_2';
     public const LANDING_PAGE_MENU_3 = 'LANDING_PAGE_MENU_3';
+    public const LANDING_PAGE_MENU_4 = 'LANDING_PAGE_MENU_4';
     public const LANDING_PAGE_REGISTER_BUTTON_TEXT = 'LANDING_PAGE_REGISTER_BUTTON_TEXT';
     public const LANDING_PAGE_HERO_BUTTON_1_TEXT = 'LANDING_PAGE_HERO_BUTTON_1_TEXT';
     public const LANDING_PAGE_HERO_BUTTON_2_TEXT = 'LANDING_PAGE_HERO_BUTTON_2_TEXT';
     public const LANDING_PAGE_Q1_2025_TEXT = 'LANDING_PAGE_Q1_2025_TEXT';
+    public const LANDING_PAGE_Q2_2025_TEXT = 'LANDING_PAGE_Q2_2025_TEXT';
+    public const LANDING_PAGE_Q3_2025_TEXT = 'LANDING_PAGE_Q3_2025_TEXT';
     public const LANDING_PAGE_Q4_2025_TEXT = 'LANDING_PAGE_Q4_2025_TEXT';
     public const LANDING_PAGE_FOOTER_MENU_1_TITLE = 'LANDING_PAGE_FOOTER_MENU_1_TITLE';
     public const LANDING_PAGE_FOOTER_MENU_2_TITLE = 'LANDING_PAGE_FOOTER_MENU_2_TITLE';
@@ -93,10 +101,14 @@ class Translation extends Model
             self::TEAM_PAGE_DESCRIPTION,
             self::TEAM_PAGE_YOUR_CODE,
             self::TEAM_PAGE_SHARE_URL_WITH_FRIENDS,
+            self::TEAM_PAGE_QR_CODE_LIST_TITLE,
             self::TEAM_PAGE_REFERRALS_LIST_TITLE,
             self::TEAM_PAGE_FRIENDS,
             self::PROFILE_PAGE_TITLE,
             self::PROFILE_PAGE_DESCRIPTION,
+            self::CHANGE_PASSWORD_PAGE_TITLE,
+            self::CHANGE_PASSWORD_PAGE_DESCRIPTION,
+            self::CHANGE_PASSWORD_SUBMIT_BUTTON_TEXT,
             self::DEPOSIT_PAGE_TITLE,
             self::DEPOSIT_PAGE_DESCRIPTION,
             self::DEPOSIT_PAGE_USUALLY_PROCESSED_TEXT,
@@ -111,10 +123,13 @@ class Translation extends Model
             self::LANDING_PAGE_MENU_1,
             self::LANDING_PAGE_MENU_2,
             self::LANDING_PAGE_MENU_3,
+            self::LANDING_PAGE_MENU_4,
             self::LANDING_PAGE_REGISTER_BUTTON_TEXT,
             self::LANDING_PAGE_HERO_BUTTON_1_TEXT,
             self::LANDING_PAGE_HERO_BUTTON_2_TEXT,
             self::LANDING_PAGE_Q1_2025_TEXT,
+            self::LANDING_PAGE_Q2_2025_TEXT,
+            self::LANDING_PAGE_Q3_2025_TEXT,
             self::LANDING_PAGE_Q4_2025_TEXT,
             self::LANDING_PAGE_FOOTER_MENU_1_TITLE,
             self::LANDING_PAGE_FOOTER_MENU_2_TITLE,
@@ -147,10 +162,14 @@ class Translation extends Model
                 self::TEAM_PAGE_DESCRIPTION => 'Workcation is a property rental website. Etiam ullamcorper massa viverra consequat, consectetur.',
                 self::TEAM_PAGE_YOUR_CODE => 'Your referral code',
                 self::TEAM_PAGE_SHARE_URL_WITH_FRIENDS => 'Share URL with friends',
+                self::TEAM_PAGE_QR_CODE_LIST_TITLE => 'Your QR code',
                 self::TEAM_PAGE_REFERRALS_LIST_TITLE => 'Your referrals',
                 self::TEAM_PAGE_FRIENDS => 'friends',
                 self::PROFILE_PAGE_TITLE => 'Profile',
                 self::PROFILE_PAGE_DESCRIPTION => 'Workcation is a property rental website. Etiam ullamcorper massa viverra consequat, consectetur.',
+                self::CHANGE_PASSWORD_PAGE_TITLE => 'Change your password',
+                self::CHANGE_PASSWORD_PAGE_DESCRIPTION => '',
+                self::CHANGE_PASSWORD_SUBMIT_BUTTON_TEXT => 'Change password',
                 self::DEPOSIT_PAGE_TITLE => 'Deposit to your account',
                 self::DEPOSIT_PAGE_DESCRIPTION => 'Workcation is a property rental website. Etiam ullamcorper massa viverra consequat, consectetur.',
                 self::DEPOSIT_PAGE_USUALLY_PROCESSED_TEXT => 'Deposit transaction is usually processed within 1 minute.',
@@ -165,10 +184,13 @@ class Translation extends Model
                 self::LANDING_PAGE_MENU_1 => 'Sample1',
                 self::LANDING_PAGE_MENU_2 => 'Sample2',
                 self::LANDING_PAGE_MENU_3 => 'Sample3',
+                self::LANDING_PAGE_MENU_4 => 'Plan',
                 self::LANDING_PAGE_REGISTER_BUTTON_TEXT => 'Register',
-                self::LANDING_PAGE_HERO_BUTTON_1_TEXT => 'Launch app',
-                self::LANDING_PAGE_HERO_BUTTON_2_TEXT => 'Whitepaper',
+                self::LANDING_PAGE_HERO_BUTTON_1_TEXT => 'Register now',
+                self::LANDING_PAGE_HERO_BUTTON_2_TEXT => 'Contact us',
                 self::LANDING_PAGE_Q1_2025_TEXT => 'Long message text',
+                self::LANDING_PAGE_Q2_2025_TEXT => 'Long message text',
+                self::LANDING_PAGE_Q3_2025_TEXT => 'Long message text',
                 self::LANDING_PAGE_Q4_2025_TEXT => 'Long message text',
                 self::LANDING_PAGE_FOOTER_MENU_1_TITLE => 'Exchanges',
                 self::LANDING_PAGE_FOOTER_MENU_2_TITLE => 'Community',

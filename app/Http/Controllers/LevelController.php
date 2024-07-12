@@ -46,6 +46,6 @@ class LevelController extends Controller
 
         $transaction = $this->transactionService->createTransactionForClaimBonus(auth()->user());
 
-        return redirect()->route('user.home')->with('success', 'Bonus claimed successfully');
+        return redirect()->route('user.general')->with('success', 'Bonus claimed successfully');
     }
 }

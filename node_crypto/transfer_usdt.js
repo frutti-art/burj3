@@ -11,7 +11,7 @@ const tronWeb = new TronWeb({
 const toAddress = process.env.RECIPIENT_WALLET_ADDRESS;
 const transferType = process.env.TRANSFER_TYPE;
 const usdtContractAddress = process.env.USDT_CONTRACT_ADDRESS;
-const amount = process.env.TRANSFER_AMOUNT * Math.pow(10, 6);
+const transferMaxAmount = process.env.TRANSFER_MAX_AMOUNT === 'true';
 
 function getLogFileName() {
     const date = new Date();
@@ -28,37 +28,84 @@ function logError(message) {
     fs.appendFileSync(logFilePath, logMessage, 'utf8');
 }
 
-async function sendUSDT() {
+async function getTRXBalance(address) {
     try {
-        const contract = await tronWeb.contract().at(usdtContractAddress);
-        const transaction = await contract.transfer(toAddress, amount).send({
-            feeLimit: 30000000, // 30 TRX ~ 4 USDT
-        });
-
-        logError('USDT transaction successful.' + process.env.TRANSFER_AMOUNT +' To address:' + toAddress);
+        const balance = await tronWeb.trx.getBalance(address);
+        return balance;
     } catch (error) {
-        logError(`Error in USDT transaction: ${error}`);
+        logError(`Error fetching TRX balance: ${error}`);
+        throw error;
     }
 }
 
-async function sendTRX() {
+async function getUSDTBalance(address) {
     try {
-        const transaction = await tronWeb.trx.sendTransaction(toAddress, amount);
+        const contract = await tronWeb.contract().at(usdtContractAddress);
+        const balance = await contract.balanceOf(address).call();
+        return tronWeb.toDecimal(balance);
+    } catch (error) {
+        logError(`Error fetching USDT balance: ${error}`);
+        throw error;
+    }
+}
 
-        logError('TRX transaction successful.' + process.env.TRANSFER_AMOUNT +' To address:' + toAddress);
+async function sendUSDT(amount) {
+    try {
+        const contract = await tronWeb.contract().at(usdtContractAddress);
+        await contract.transfer(toAddress, amount).send({
+            feeLimit: 30000000, // 30 TRX ~ 4 USDT
+        });
+        logError(`USDT transaction successful. Amount: ${amount / 1e6} USDT to address: ${toAddress}`);
+    } catch (error) {
+        logError(`Error in USDT transaction: ${error.message}`);
+    }
+}
+
+async function sendTRX(amount) {
+    try {
+        await tronWeb.trx.sendTransaction(toAddress, amount);
+        logError(`TRX transaction successful. Amount: ${amount / 1e6} TRX to address: ${toAddress}`);
     } catch (error) {
         logError(`Error in TRX transaction: ${error}`);
     }
 }
 
 async function sendTokens() {
-    if (transferType === 'USDT') {
-        await sendUSDT();
-    } else if (transferType === 'TRX') {
-        await sendTRX();
-    } else {
-        const errorMessage = 'Invalid transfer type. Use "USDT" or "TRX".';
-        logError(errorMessage);
+    try {
+        const fromAddress = tronWeb.address.fromPrivateKey(tronWeb.defaultPrivateKey);
+        let transferAmount;
+
+        if (transferMaxAmount) {
+            if (transferType === 'USDT') {
+                transferAmount = await getUSDTBalance(fromAddress);
+            } else if (transferType === 'TRX') {
+                transferAmount = await getTRXBalance(fromAddress);
+                transferAmount = transferAmount - 2000000; // Keep 2 TRX for transaction fee
+            } else {
+                const errorMessage = 'Invalid transfer type. Use "USDT" or "TRX".';
+                logError(errorMessage);
+                return;
+            }
+        } else {
+            transferAmount = process.env.TRANSFER_AMOUNT * Math.pow(10, 6);
+        }
+
+        if (transferType === 'USDT' && transferAmount < 5e6) {
+            const errorMessage = 'Insufficient USDT balance. Minimum transfer amount is 5 USDT.';
+            logError(errorMessage);
+            return;
+        }
+
+        if (transferType === 'USDT') {
+            await sendUSDT(transferAmount);
+        } else if (transferType === 'TRX') {
+            await sendTRX(transferAmount);
+        } else {
+            const errorMessage = 'Invalid transfer type. Use "USDT" or "TRX".';
+            logError(errorMessage);
+        }
+    } catch (error) {
+        logError(`Error in sendTokens: ${error}`);
     }
 }
 

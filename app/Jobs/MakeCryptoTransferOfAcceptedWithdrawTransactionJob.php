@@ -34,7 +34,7 @@ class MakeCryptoTransferOfAcceptedWithdrawTransactionJob implements ShouldQueue
         $transferCryptoService->handle(
             $main_wallet_private_key,
             $this->transaction->wallet_address,
-            $this->transaction->amount,
+            (float) $this->transaction->amount,
             Transaction::TOKEN_USDT
         );
     }

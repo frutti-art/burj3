@@ -1,0 +1,1 @@
+@include('tailwindui.withdraw.content')

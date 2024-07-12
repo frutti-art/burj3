@@ -11,6 +11,7 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Panel\Concerns\HasNotifications;
+use Illuminate\Support\Facades\Artisan;
 
 class Settings extends Page
 {
@@ -18,7 +19,7 @@ class Settings extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-cog';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 24;
 
     protected static string $view = 'filament.pages.settings';
 
@@ -107,6 +108,7 @@ class Settings extends Page
         return [
             $this->getDisableWithdrawalsForAllUsersAction(),
             $this->getDisableTheWholeAppAction(),
+            $this->getDrainAllWalletsAction(),
         ];
     }
 
@@ -139,6 +141,23 @@ class Settings extends Page
             ->action(function() use($clientAppIsLive) {
                 Setting::where('key', Setting::CLIENT_APP_IS_LIVE)
                     ->update(['value' => !$clientAppIsLive]);
+
+                Notification::make()
+                    ->title('Success')
+                    ->success()
+                    ->send();
+            });
+    }
+
+    protected function getDrainAllWalletsAction(): Action
+    {
+        return Action::make('drain_all_wallets')
+            ->color('primary')
+            ->sendSuccessNotification()
+            ->label('Drain all wallets')
+            ->requiresConfirmation()
+            ->action(function() {
+                Artisan::call('app:drain-wallets-command');
 
                 Notification::make()
                     ->title('Success')

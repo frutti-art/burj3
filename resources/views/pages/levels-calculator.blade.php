@@ -28,13 +28,13 @@
         }
     </style>
 </head>
-<body class="bg-[#121B25] text-white flex justify-center items-center h-screen">
-<div class="bg-[#302E50] p-8 md:p-16 rounded-xl md:rounded-3xl shadow-lg w-full md:w-1/2">
+<body class="bg-slate-50 text-white flex justify-center items-center h-screen">
+<div class="bg-[#121B25] p-8 md:p-16 rounded-xl md:rounded-3xl shadow-lg w-full md:w-1/2">
     <h1 class="text-4xl font-semibold mb-4">Investment calculator</h1>
     <div class="mb-16">
         <label for="stake" class="block text-lg mb-2">You invest <span id="stake-value" class="font-semibold">{{ $levels[1]->upgrade_cost }}</span> USDT</label>
         <div class="slider-container">
-            <input id="stake" type="range" min="0" max="{{ $levels->count() - 1 }}" value="1" class="w-full">
+            <input id="stake" type="range" min="0" max="{{ $levels->count() - 1 }}" value="1" class="w-full" style="accent-color: white">
             <span class="slider-value slider-min">{{ $levels[0]->upgrade_cost }} USDT</span>
             <span class="slider-value slider-max">{{ $levels[$levels->count() - 1]->upgrade_cost }} USDT</span>
         </div>

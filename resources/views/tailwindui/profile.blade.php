@@ -21,7 +21,7 @@
             <a type="button" href="{{ route('user.transactions') }}"
                class="text-center w-full md:w-1/2 rounded-md dark:bg-blue-600 bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">View
                 transactions</a>
-            <a type="button"
+            <a type="button" href="{{ route('user.change-password') }}"
                class="text-center w-full md:w-1/2 rounded-md dark:bg-blue-600 bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Change
                 password</a>
             <a type="button" href="{{ route('logout') }}"

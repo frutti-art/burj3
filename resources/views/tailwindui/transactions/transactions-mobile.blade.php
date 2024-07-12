@@ -1,0 +1,1 @@
+@include('tailwindui.transactions.content')

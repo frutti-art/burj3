@@ -67,7 +67,7 @@
     </div>
 
 
-    <div class="gap-x-4 mt-24 border rounded-2xl shadow-lg border-gray-900/5 bg-gray-100 dark:bg-[#192734] mx-4">
+    <div class="gap-x-4 mt-24 border rounded-2xl shadow-lg border-gray-900/5 bg-gray-100 dark:bg-[#1F242C] mx-4">
         <div class="text-center pt-4">
             <h2 class="text-base font-semibold leading-7 text-indigo-600 dark:text-[#FFFFFF]">{{ $t[Translation::HOME_NEW_MEMBERS_TITLE] }}</h2>
         </div>

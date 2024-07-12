@@ -44,6 +44,15 @@
             border: none;
         }
 
+        .full-screen-iframe-faq {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /*height: 100%;*/
+            border: none;
+        }
+
         .iframe-container {
             position: relative;
             width: 100%;
@@ -51,9 +60,9 @@
         }
 
         .tooltip .tooltip-text {
-            visibility: hidden;
+            /*visibility: hidden;*/
             width: 200px; /* Adjust the width as needed */
-            background-color: black;
+            /*background-color: black;*/
             color: #fff;
             text-align: center;
             border-radius: 5px;
@@ -63,7 +72,7 @@
             bottom: 100%; /* Position the tooltip above the text */
             left: 50%;
             margin-left: -100px; /* Use half of the tooltip's width to center it */
-            opacity: 0;
+            opacity: 0.3;
             transition: opacity 0.3s;
         }
 
@@ -72,6 +81,14 @@
             opacity: 1;
         }
 
+        .tooltip-main-text {
+            opacity: 0.3;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-main-text:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 <body style="
@@ -98,9 +115,10 @@
             <div class="flex-1 lg:hidden">
                 <nav class="top-menu">
                     <ul class="top-menu__list">
-                        <li><a href="#xcn">{{ $t[Translation::LANDING_PAGE_MENU_1] }}</a></li>
-                        <li><a href="#governance">{{ $t[Translation::LANDING_PAGE_MENU_2] }}</a></li>
-                        <li><a href="#markets">{{ $t[Translation::LANDING_PAGE_MENU_3] }}</a></li>
+                        <li><a href="#calculator">{{ $t[Translation::LANDING_PAGE_MENU_1] }}</a></li>
+                        <li><a href="#faq">{{ $t[Translation::LANDING_PAGE_MENU_2] }}</a></li>
+                        <li><a href="#contact">{{ $t[Translation::LANDING_PAGE_MENU_3] }}</a></li>
+                        <li><a href="#plan">{{ $t[Translation::LANDING_PAGE_MENU_4] }}</a></li>
                     </ul>
                 </nav>
             </div>
@@ -134,7 +152,7 @@
             </div>
             <div class="mobile-menu__body">
                 <ul class="space-y-7 mobile-menu-list">
-                    <li><a class="flex items-center gap-6" href="#xcn">
+                    <li><a class="flex items-center gap-6" href="#calculator">
                             <div class="flex-none">
                                 <picture>
                                     <source srcset="landing/images/pBYqXLK1aYf6.webp" type="image/webp">
@@ -143,9 +161,9 @@
                                          height="38">
                                 </picture>
                             </div>
-                            <div class="flex-1 text-xl font-medium">XCN</div>
+                            <div class="flex-1 text-xl font-medium">{{ $t[Translation::LANDING_PAGE_MENU_1] }}</div>
                         </a></li>
-                    <li><a class="flex items-center gap-6" href="#governance">
+                    <li><a class="flex items-center gap-6" href="#faq">
                             <div class="flex-none">
                                 <picture>
                                     <source srcset="landing/images/jysIrZ5Jx3Vm.webp" type="image/webp">
@@ -154,9 +172,9 @@
                                          height="38">
                                 </picture>
                             </div>
-                            <div class="flex-1 text-xl font-medium">Governance</div>
+                            <div class="flex-1 text-xl font-medium">{{ $t[Translation::LANDING_PAGE_MENU_2] }}</div>
                         </a></li>
-                    <li><a class="flex items-center gap-6" href="#markets">
+                    <li><a class="flex items-center gap-6" href="#contact">
                             <div class="flex-none">
                                 <picture>
                                     <source srcset="landing/images/0qIHsw3AooJ6.webp" type="image/webp">
@@ -165,7 +183,18 @@
                                          height="38">
                                 </picture>
                             </div>
-                            <div class="flex-1 text-xl font-medium">Markets</div>
+                            <div class="flex-1 text-xl font-medium">{{ $t[Translation::LANDING_PAGE_MENU_3] }}</div>
+                        </a></li>
+                    <li><a class="flex items-center gap-6" href="#plan">
+                            <div class="flex-none">
+                                <picture>
+                                    <source srcset="landing/images/pBYqXLK1aYf6.webp" type="image/webp">
+                                    <img src="landing/images/AsraKvFD9SSS.png" srcset="landing/images/AsraKvFD9SSS.png"
+                                         alt="img" width="38"
+                                         height="38">
+                                </picture>
+                            </div>
+                            <div class="flex-1 text-xl font-medium">{{ $t[Translation::LANDING_PAGE_MENU_4] }}</div>
                         </a></li>
                 </ul>
             </div>
@@ -176,7 +205,7 @@
     </div>
 
     <main class="main">
-        <section class="relative z-[4] bg-black overflow-hidden">
+        <section class="relative z-[4] bg-black overflow-hidden" style="padding-bottom: 50px">
             <div class="pt-12 welcome-area">
                 <div class="container">
                     <h1 class="text-center text-55"><span
@@ -203,14 +232,26 @@
                         </div>
                     </div>
                     <div class="flex justify-center mt-20 gap-8 sm:gap-2 xs:flex-col">
-                        <div class="flex-none is-up"><a class="black-trs-btn" href="#">{{ $t[Translation::LANDING_PAGE_HERO_BUTTON_1_TEXT] }}</a></div>
-                        <div class="flex-none is-up"><a class="blue-btn" href="#">{{ $t[Translation::LANDING_PAGE_HERO_BUTTON_2_TEXT] }}</a>
+                        <div class="flex-none is-up"><a class="black-trs-btn" href="{{ route('register') }}">{{ $t[Translation::LANDING_PAGE_HERO_BUTTON_1_TEXT] }}</a></div>
+                        <div class="flex-none is-up"><a class="blue-btn" href="#contact">{{ $t[Translation::LANDING_PAGE_HERO_BUTTON_2_TEXT] }}</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="py-10 sm:pt-0">
+
+        <div class="iframe-container" id="calculator">
+            <iframe class="full-screen-iframe" src="/levels-calculator"></iframe>
+        </div>
+
+        <div class="iframe-container" id="faq">
+            <iframe class="full-screen-iframe" src="/faq"></iframe>
+        </div>
+
+        <div class="iframe-container" id="contact">
+            <iframe class="full-screen-iframe" src="/contact"></iframe>
+        </div>
+        <section class="py-10 sm:pt-0" id="plan">
             <div class="container">
                 <div class="mt-[242px] mb-[365px] sm:mb-[242px]">
                     <div class="distribution-area-logo">
@@ -225,35 +266,59 @@
                             </div>
                         </div>
                         <div
-                            class="distribution-name flex items-center justify-center gap-3 distribution-name-bottom op-0 tooltip">
+                            class="distribution-name flex items-center justify-center gap-4 distribution-name-bottom op-0 tooltip">
                             <div class="flex-none"><img src="landing/images/chK7zf8IJLgm.svg" alt="Payments" width="22"
                                                         height="22"></div>
                             <div>
-                                <div class="flex-none text-24 text-ea">Q4 2025</div>
-                                <div class="tooltip-text">{{ $t[Translation::LANDING_PAGE_Q4_2025_TEXT] }}
-                                </div>
+{{--                                <div class="flex-none text-24 tooltip-main-text">Q3 2025</div>--}}
+{{--                                <div class="tooltip-text">{{ $t[Translation::LANDING_PAGE_Q3_2025_TEXT] }}</div>--}}
+                                <div class="tooltip-text text-24">Q3 2025</div>
+                                <div class="flex-none tooltip-main-text ">{{ $t[Translation::LANDING_PAGE_Q3_2025_TEXT] }}</div>
                             </div>
                         </div>
 
                         <div
-                            class="distribution-name flex items-center justify-center gap-3 distribution-name-right op-0">
+                            class="distribution-name flex items-center justify-center gap-3 distribution-name-right op-0 tooltip">
                             <div class="flex-none"><img src="landing/images/O4qI8RXs6Ymt.svg" alt="Governance"
                                                         width="21"
                                                         height="21"></div>
-                            <div class="flex-none text-24 text-ea"></div>
+                            <div>
+                                <div class="text-24 tooltip-main-text" style="width: 100px">Q2 2025</div>
+                                <div class="tooltip-text">{{ $t[Translation::LANDING_PAGE_Q2_2025_TEXT] }}</div>
+                            </div>
                         </div>
                         <div
-                            class="distribution-name flex items-center justify-center gap-3 distribution-name-left op-0">
+                            class="distribution-name flex items-center justify-center gap-3 distribution-name-left op-0 tooltip">
                             <div class="flex-none"><img src="landing/images/GVSLaly9RxYq.svg" alt="Staking" width="20"
                                                         height="20"></div>
-                            <div class="flex-none text-24 text-ea"></div>
+                            <div>
+                                <div class="flex-none text-24 tooltip-main-text" style="width: 100px">Q4 2025</div>
+                                <div class="tooltip-text">{{ $t[Translation::LANDING_PAGE_Q4_2025_TEXT] }}</div>
+                            </div>
                         </div>
                         <div
                             class="distribution-name flex items-center justify-center gap-3 distribution-name-top op-0 tooltip">
-                            <div class="flex-none text-24">Q1 2025</div>
-                            <div class="tooltip-text"> {{ $t[Translation::LANDING_PAGE_Q1_2025_TEXT] }}
+                            <div class="flex-none"><img src="landing/images/GVSLaly9RxYq.svg" alt="Staking" width="20"
+                                                        height="20"></div>
+                            <div>
+                                <div class="flex-none text-24 tooltip-main-text" style="width: 100px">Q1 2025</div>
+                                <div class="tooltip-text">{{ $t[Translation::LANDING_PAGE_Q1_2025_TEXT] }}</div>
                             </div>
                         </div>
+{{--                        <div--}}
+{{--                            class="distribution-name flex items-center justify-center gap-3 distribution-name-top op-0 tooltip">--}}
+{{--                            <div class="flex-none"><img src="landing/images/GVSLaly9RxYq.svg" alt="Staking" width="20"--}}
+{{--                                                        height="20"></div>--}}
+{{--                            <div>--}}
+{{--                                <div class="flex-none text-24 tooltip-main-text" style="width: 100px">Q1 2025</div>--}}
+{{--                                <div class="tooltip-text">{{ $t[Translation::LANDING_PAGE_Q1_2025_TEXT] }}</div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div--}}
+{{--                            class="distribution-name flex items-center justify-center gap-3 distribution-name-top op-0 tooltip">--}}
+{{--                            <div class="tooltip-text text-24">Q1 2025</div>--}}
+{{--                            <div class="flex-none tooltip-main-text "> {{ $t[Translation::LANDING_PAGE_Q1_2025_TEXT] }}</div>--}}
+{{--                        </div>--}}
 
                     </div>
                 </div>
@@ -286,10 +351,6 @@
                 </div>
             </div>
         </section>
-
-        <div class="iframe-container">
-            <iframe class="full-screen-iframe" src="/levels-calculator"></iframe>
-        </div>
     </main>
     <footer class="footer">
         <div class="footer__top">
@@ -298,19 +359,12 @@
                     <section class="flex-none space-y-6">
                         <h2 class="bottom-menu__title">{{ $t[Translation::LANDING_PAGE_FOOTER_MENU_1_TITLE] }}</h2>
                         <ul class="bottom-menu space-y-4">
-                            <li><a href="#" target="_blank">Coinbase</a></li>
-                            <li><a href="#" target="_blank">Kraken</a>
-                            </li>
-                            <li><a href="#" target="_blank">Bithumb</a></li>
-                            <li><a href="#" target="_blank">Kucoin</a></li>
-                            <li><a href="#" target="_blank">Gate</a></li>
-                            <li><a href="#" target="_blank">HTX</a></li>
+                            <li><a href="https://www.coinbase.com/" target="_blank">Coinbase</a></li>
                         </ul>
                     </section>
                     <section class="flex-none space-y-6">
                         <h2 class="bottom-menu__title">{{ $t[Translation::LANDING_PAGE_FOOTER_MENU_2_TITLE] }}</h2>
                         <ul class="bottom-menu space-y-4">
-                            <li><a href="{{ $t[Translation::LANDING_PAGE_TWITTER_URL] }}" target="_blank">Twitter</a></li>
                             <li><a href="{{ $t[Translation::LANDING_PAGE_TELEGRAM_URL] }}" target="_blank">Telegram</a></li>
                         </ul>
                     </section>
@@ -334,8 +388,6 @@
                     <ul class="footer-socials justify-end">
                         <li><a href="{{ $t[Translation::LANDING_PAGE_TELEGRAM_URL] }}"><img src="landing/images/t9kq5MoXlBQm.svg" alt="Telegram" width="18"
                                              height="15"></a></li>
-                        <li><a href="{{ $t[Translation::LANDING_PAGE_TWITTER_URL] }}"><img src="landing/images/vTt9yzU7xQVA.svg" alt="twitter"
-                                             width="18" height="15"></a></li>
                     </ul>
                 </div>
             </div>

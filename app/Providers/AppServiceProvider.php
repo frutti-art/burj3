@@ -47,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
             $translations = Translation::all()->pluck('value', 'key')->toArray();
 
             $view->with('t', $translations);
+            $view->with('isMobile', $this->isMobileDevice());
         });
     }
 
@@ -114,5 +115,28 @@ class AppServiceProvider extends ServiceProvider
         $seconds = $now->copy()->addHours($hours)->addMinutes($minutes)->diffInSeconds($nextEightAm);
 
         return [$hours, $minutes, $seconds];
+    }
+
+    private function isMobileDevice(): bool
+    {
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+        $mobileAgents = [
+            'Mobile',
+            'Android',
+            'Silk/',
+            'Kindle',
+            'BlackBerry',
+            'Opera Mini',
+            'Opera Mobi'
+        ];
+
+        foreach ($mobileAgents as $device) {
+            if (stripos($userAgent, $device) !== false) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

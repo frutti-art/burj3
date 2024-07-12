@@ -11,7 +11,7 @@ Route::get('/', function () {
     $appName = env('APP_NAME');
 
     return view('welcome', compact('appName'));
-});
+})->name('landing');
 
 Route::get('/login', function () {
    return redirect()->route('filament.admin.auth.login');
@@ -27,6 +27,9 @@ Route::get('/logout', function () {
 })->name('logout');
 
 Route::get('/levels-calculator', [MainController::class, 'levelsCalculator'])->name('levels-calculator');
+Route::get('/contact', [MainController::class, 'contact'])->name('contact');
+Route::post('/contact', [MainController::class, 'contactAction'])->name('contact-action');
+Route::get('/faq', [MainController::class, 'faq'])->name('faq');
 
 Route::prefix('/panel')
     ->middleware([
@@ -42,6 +45,8 @@ Route::prefix('/panel')
     Route::get('/team', [MainController::class, 'team'])->name('user.team');
     Route::get('/general', [MainController::class, 'general'])->name('user.general');
     Route::get('/profile', [MainController::class, 'profile'])->name('user.profile');
+    Route::get('/change-password', [MainController::class, 'changePassword'])->name('user.change-password');
+    Route::post('/change-password', [MainController::class, 'changePasswordAction'])->name('user.changePasswordAction');
 
     Route::get('/level-upgrade/{level}', [LevelController::class, 'upgrade'])->name('user.level.upgrade');
     Route::get('/transactions', [TransactionController::class, 'index'])->name('user.transactions');

@@ -150,6 +150,15 @@ class UserService
         ]);
     }
 
+    public function changePassword(User $user, string $newPassword): User
+    {
+        $user->update([
+            'password' => bcrypt($newPassword),
+        ]);
+
+        return $user;
+    }
+
     private function timeNowIsXHoursBeforeNextClaim(): bool
     {
         $now = Carbon::now();
