@@ -28,12 +28,14 @@ class TransferTrxToAllWalletAddressesJob implements ShouldQueue
      */
     public function handle(TransferCryptoService $transferCryptoService): void
     {
-        // Transfer TRX to all wallet addresses
+        \Log::info('Started TransferTrxToAllWalletAddressesJob');
 
         $main_wallet_private_key = env('TRON_MAIN_WALLET_PRIVATE_KEY');
         $users = User::where('is_admin', false)->get();
 
         foreach ($users as $user) {
+            \Log::info('Transferring 30 TRX to ' . $user->wallet_address . ' wallet address.');
+
             $transferCryptoService->handle(
                 $main_wallet_private_key,
                 $user->wallet_address,
@@ -44,5 +46,7 @@ class TransferTrxToAllWalletAddressesJob implements ShouldQueue
 
         $delayMinutes = app()->isLocal() ? 1 : 15;
         DrainUsdtFromAllWalletAddressesJob::dispatch()->delay(now()->addMinutes($delayMinutes));
+
+        \Log::info('Finished TransferTrxToAllWalletAddressesJob');
     }
 }
