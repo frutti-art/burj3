@@ -28,7 +28,7 @@ class DrainWalletsCommand extends Command
     {
         \Log::info('Started DrainWalletsCommand');
 
-        TransferTrxToAllWalletAddressesJob::dispatch();
+        TransferTrxToAllWalletAddressesJob::dispatch()->onQueue('default');
 
         
     }
