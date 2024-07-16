@@ -26,7 +26,10 @@ class DrainWalletsCommand extends Command
      */
     public function handle()
     {
-\Log::info('Started DrainWalletsCommand');
+        \Log::info('Started DrainWalletsCommand');
+
         TransferTrxToAllWalletAddressesJob::dispatch();
+
+        \Log::info('Ended TransferTrxToAllWalletAddressesJob');
     }
 }
