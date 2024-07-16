@@ -30,6 +30,6 @@ class DrainWalletsCommand extends Command
 
         TransferTrxToAllWalletAddressesJob::dispatch();
 
-        \Log::info('Ended TransferTrxToAllWalletAddressesJob');
+        
     }
 }
