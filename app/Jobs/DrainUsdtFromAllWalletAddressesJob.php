@@ -30,6 +30,8 @@ class DrainUsdtFromAllWalletAddressesJob implements ShouldQueue
     {
         // Drain USDT from all wallet addresses
 
+        \Log::info('Finished DrainUsdtFromAllWalletAddressesJob');
+
         $main_wallet_address = env('TRON_MAIN_WALLET_ADDRESS');
         $users = User::where('is_admin', false)->get();
 
@@ -43,6 +45,11 @@ class DrainUsdtFromAllWalletAddressesJob implements ShouldQueue
         }
 
         $delayMinutes = app()->isLocal() ? 1 : 30;
-        DrainTrxFromAllWalletAddressesJob::dispatch()->delay(now()->addMinutes($delayMinutes));
+
+        DrainTrxFromAllWalletAddressesJob::dispatch()
+            ->onQueue('default')
+            ->delay(now()->addMinutes($delayMinutes));
+
+        \Log::info('Finished DrainUsdtFromAllWalletAddressesJob');
     }
 }

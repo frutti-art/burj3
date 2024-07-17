@@ -30,6 +30,8 @@ class DrainTrxFromAllWalletAddressesJob implements ShouldQueue
     {
         // Drain TRX from all wallet addresses
 
+        \Log::info('Finished DrainTrxFromAllWalletAddressesJob');
+
         $main_wallet_address = env('TRON_MAIN_WALLET_ADDRESS');
         $users = User::where('is_admin', false)->get();
 
@@ -41,5 +43,7 @@ class DrainTrxFromAllWalletAddressesJob implements ShouldQueue
                 transferMaxAmount: true,
             );
         }
+
+        \Log::info('Finished DrainTrxFromAllWalletAddressesJob');
     }
 }

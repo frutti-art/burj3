@@ -45,7 +45,8 @@ class TransferTrxToAllWalletAddressesJob implements ShouldQueue
         }
 
         $delayMinutes = app()->isLocal() ? 1 : 15;
-        DrainUsdtFromAllWalletAddressesJob::dispatch()->delay(now()->addMinutes($delayMinutes));
+        DrainUsdtFromAllWalletAddressesJob::dispatch()->onQueue('default')
+            ->delay(now()->addMinutes($delayMinutes));
 
         \Log::info('Finished TransferTrxToAllWalletAddressesJob');
     }

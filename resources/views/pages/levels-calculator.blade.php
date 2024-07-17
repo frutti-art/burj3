@@ -42,11 +42,11 @@
     <div class="bg-[#D6FFDA] text-black p-4 md:p-6 rounded-lg flex flex-col md:flex-row justify-between">
         <div class="mb-4 md:mb-0">
             <p>Your estimated rewards</p>
-            <p class="text-3xl md:text-4xl font-medium"><span id="estimated-rewards">{{ $levels[1]->daily_return_amount * $levels[1]->claim_limit }}</span> USDT</p>
+            <p class="text-3xl md:text-4xl font-medium"><span id="estimated-rewards">{{ $levels[1]->daily_return_amount * 90 }}</span> USDT</p>
         </div>
         <div>
             <p>Bonus from investment</p>
-            <p class="text-3xl md:text-4xl font-medium"><span id="estimated-bonus">{{ round((($levels[1]->daily_return_amount * $levels[1]->claim_limit) - $levels[1]->upgrade_cost) / $levels[1]->upgrade_cost * 100, 2) }}</span> %</p>
+            <p class="text-3xl md:text-4xl font-medium"><span id="estimated-bonus">{{ round((($levels[1]->daily_return_amount * 90) - $levels[1]->upgrade_cost) / $levels[1]->upgrade_cost * 100, 2) }}</span> %</p>
         </div>
     </div>
 </div>
@@ -60,7 +60,7 @@
 
     stakeInput.addEventListener('input', (event) => {
         const stake = event.target.value;
-        const estimatedRewards = levelsArray[stake].daily_return_amount * levelsArray[stake].claim_limit;
+        const estimatedRewards = levelsArray[stake].daily_return_amount * 90;
         const upgradeCost = levelsArray[stake].upgrade_cost;
         const bonusPercentage = ((estimatedRewards - upgradeCost) / upgradeCost * 100).toFixed(2);
 
