@@ -30,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->darkMode(false)
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(CustomLogin::class)
             ->registration(Pages\Auth\CustomRegister::class)
             ->colors([
                 'primary' => Color::Blue,

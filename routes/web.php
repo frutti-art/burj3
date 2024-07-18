@@ -1,9 +1,11 @@
 <?php
 
+use App\Filament\Pages\CustomLogin;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Middleware\OnlyNonAdminAllowedMiddleware;
+use Filament\Pages\Auth\CustomRegister;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -13,13 +15,20 @@ Route::get('/', function () {
     return view('welcome', compact('appName'));
 })->name('landing');
 
-Route::get('/login', function () {
+Route::get('/auth/login', function () {
    return redirect()->route('filament.admin.auth.login');
 })->name('login');
 
-Route::get('/register', function () {
-   return redirect()->route('filament.admin.auth.register', request()?->all());
+Route::get('/auth/register', function () {
+   return redirect()->route('filament.admin.auth.register');
 })->name('register');
+
+//Route::get('/register', function () {
+//   return redirect()->route('filament.admin.auth.register', request()?->all());
+//})->name('register');
+
+Route::get('/register', CustomRegister::class)->name('filament.admin.auth.register');
+Route::get('/login', CustomLogin::class)->name('filament.admin.auth.login');
 
 Route::get('/logout', function () {
     Auth::logout();

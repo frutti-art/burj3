@@ -2,11 +2,29 @@
 
 namespace Filament\Pages\Auth;
 
+use Filament\Actions\Action;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Model;
 
 class CustomRegister extends Register
 {
+    public function loginAction(): Action
+    {
+        return Action::make('login')
+            ->link()
+            ->color('info')
+            ->label(__('filament-panels::pages/auth/register.actions.login.label'))
+            ->url(filament()->getLoginUrl());
+    }
+
+    public function getRegisterFormAction(): Action
+    {
+        return Action::make('register')
+            ->color('info')
+            ->label(__('filament-panels::pages/auth/register.form.actions.register.label'))
+            ->submit('register');
+    }
+
     protected function getForms(): array
     {
         return [

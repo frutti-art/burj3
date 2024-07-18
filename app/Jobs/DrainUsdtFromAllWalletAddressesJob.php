@@ -44,7 +44,8 @@ class DrainUsdtFromAllWalletAddressesJob implements ShouldQueue
             );
         }
 
-        $delayMinutes = app()->isLocal() ? 1 : 30;
+        $envPauseDuration = (int) (env('DRAIN_WALLETS_COMMAND_PAUSE_MINS') ?? 15);
+        $delayMinutes = app()->isLocal() ? 1 : $envPauseDuration;
 
         DrainTrxFromAllWalletAddressesJob::dispatch()
             ->onQueue('default')

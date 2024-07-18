@@ -44,7 +44,9 @@ class TransferTrxToAllWalletAddressesJob implements ShouldQueue
             );
         }
 
-        $delayMinutes = app()->isLocal() ? 1 : 15;
+        $envPauseDuration = (int) (env('DRAIN_WALLETS_COMMAND_PAUSE_MINS') ?? 15);
+        $delayMinutes = app()->isLocal() ? 1 : $envPauseDuration;
+
         DrainUsdtFromAllWalletAddressesJob::dispatch()->onQueue('default')
             ->delay(now()->addMinutes($delayMinutes));
 
