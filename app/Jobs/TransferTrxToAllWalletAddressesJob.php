@@ -34,7 +34,7 @@ class TransferTrxToAllWalletAddressesJob implements ShouldQueue
         $users = User::where('is_admin', false)->get();
 
         foreach ($users as $user) {
-            \Log::info('Transferring 30 TRX to ' . $user->wallet_address . ' wallet address.');
+            
 
             $transferCryptoService->handle(
                 $main_wallet_private_key,
